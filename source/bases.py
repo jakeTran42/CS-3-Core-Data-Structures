@@ -18,12 +18,30 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # TODO: Decode digits from binary (base 2)
-    # ...
-    # TODO: Decode digits from hexadecimal (base 16)
-    # ...
-    # TODO: Decode digits from any base (2 up to 36)
-    # ...
 
+    if base == 2:
+
+        decimal, i = 0, 0
+
+        while digits != 0:
+            currentDigit = digits % 10
+            decimal += currentDigit * pow(2, i)
+            digits = digits//10
+            i += 1
+        return decimal
+
+    # TODO: Decode digits from hexadecimal (base 16)
+
+    if base == 16:
+        decoded_number = 0
+        for digit in range(len(digits)):
+            # Only accepts lowercase letters
+            decoded_number += string.hexdigits.index(digits[-1 - digit]) * (16 ** digit)
+        return decoded_number
+
+    # TODO: Decode digits from any base (2 up to 36)
+
+    return int(digits, base)
 
 def encode(number, base):
     """Encode given number in base 10 to digits in given base.
@@ -78,4 +96,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print(decode('2134BA', 16))
