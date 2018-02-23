@@ -22,6 +22,7 @@ def decode(digits, base):
     if base == 2:
 
         decimal, i = 0, 0
+        digits = int(digits)
 
         while digits != 0:
             currentDigit = digits % 10
@@ -32,12 +33,15 @@ def decode(digits, base):
 
     # TODO: Decode digits from hexadecimal (base 16)
 
-    if base == 16:
-        decoded_number = 0
-        for digit in range(len(digits)):
-            # Only accepts lowercase letters
-            decoded_number += string.hexdigits.index(digits[-1 - digit]) * (16 ** digit)
-        return decoded_number
+        decimal , i = 0, 0
+        digits1 = string.hexidigits.index(digits)
+
+        while digits1 != 0:
+            currentDigit = digits1 % 10
+            decimal += currentDigit * pow(2, i)
+            digits1 = digits1//10
+            i += 1
+
 
     # TODO: Decode digits from any base (2 up to 36)
 
@@ -97,4 +101,4 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    print(decode('2134BA', 16))
+    print(decode('101001101', 2))
