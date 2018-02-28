@@ -19,7 +19,16 @@ def is_palindrome(text):
 
 def is_palindrome_iterative(text):
     # TODO: implement the is_palindrome function iteratively here
-    pass
+    words = text
+    cleanWord = words.replace(' ', '').replace(',', '').lower()
+    print(cleanWord)
+    for i in range(len(cleanWord)):
+        print(cleanWord[i], cleanWord[-i - 1])
+        if cleanWord[i] != cleanWord[-i - 1]:
+            print('Its not a palindrome')
+            return False
+    print('its a palindrome')
+    return True
     # once implemented, change is_palindrome to call is_palindrome_iterative
     # to verify that your iterative implementation passes all tests
 
