@@ -5,6 +5,10 @@ def contains(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement contains here (iteratively and/or recursively)
+    if find_index(text, pattern) != None:
+        return True
+    else:
+        return False
 
 
 def find_index(text, pattern):
@@ -13,6 +17,16 @@ def find_index(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_index here (iteratively and/or recursively)
+    string = text.lower()
+    len_of_pattern = len(pattern)
+    cur_index = 0
+    # TODO: Need to add conditon where if length of pattern is bigger than text then return None
+    while cur_index < len(string):
+        if string[cur_index:cur_index+len_of_pattern] == pattern:
+            print(string[cur_index:cur_index+len_of_pattern])
+            return cur_index
+        cur_index += 1
+    return None
 
 
 def find_all_indexes(text, pattern):
@@ -21,6 +35,19 @@ def find_all_indexes(text, pattern):
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+    string = text.lower()
+    len_of_pattern = len(pattern)
+    cur_index = 0
+    index_of_occur = []
+    # TODO: Need to add conditon where if length of pattern is bigger than text then return []
+    while cur_index < len(string):
+        if string[cur_index:cur_index+len_of_pattern] == pattern:
+            # print(string[cur_index:cur_index+len_of_pattern])
+            index_of_occur.append(cur_index)
+        cur_index += 1
+
+    return index_of_occur
+
 
 
 def test_string_algorithms(text, pattern):
@@ -53,4 +80,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    print(find_index('abc', 'z'))
