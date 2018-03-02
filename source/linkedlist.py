@@ -79,6 +79,16 @@ class LinkedList(object):
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node at the given index and return its data
+        cur_node = self.head
+        node_index = 0
+        data = cur_node.data
+
+        while node_index < index:
+            node_index += 1
+            cur_node = node.next
+            data = cur_node.data
+        return data
+
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -89,6 +99,40 @@ class LinkedList(object):
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
         # TODO: Find the node before the given index and insert item after it
+
+        new_item = Node(item)
+        self.size += 1
+
+        #if list was empty
+        if self.head != None:
+            self.head = new_item
+            self.tail = new_item
+        #if index start at head 0 index
+        elif index == 0:
+            new_item.next = self.head
+            self.head = new_item
+        #if item was last at tail
+        elif index == self.size - 1:
+            self.tail.next = new_item
+            self.tail = new_item
+        #anywhere else
+        else:
+            node_index = 0
+            cur_node = self.head
+            next_node = cur_node.next
+            #Find the node before the index given
+            while node_index <= index:
+                if index == node_index - 1:
+                    cur_node.next = new_item
+                    new_item.next = next_node
+                    return
+                else:
+                    cur_node = cur_node.next
+                    node_index += 1
+
+
+
+
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -145,7 +189,17 @@ class LinkedList(object):
         Worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
-        pass
+        tail = self.tail
+        if tail.data == old_item:
+            tail.data = old_item
+        else:
+            cur_node = self.head
+            while cur_node is not None:
+                if node.data == old_item:
+                    node.data = new_item
+                    return
+                else:
+                    cur_node = cur_node.next
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
