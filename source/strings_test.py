@@ -74,6 +74,7 @@ class StringsTest(unittest.TestCase):
         assert find_index('abcabcdabcde', 'abcd') == 3  # multiple occurrences, overlapping prefix
         assert find_index('abra cadabra', 'abra') == 0  # multiple occurrences
         assert find_index('abra cadabra', 'adab') == 6  # overlapping prefix
+        assert find_index('aaaaab', 'aaab')
         # TODO: Write more test cases that check complex patterns or edge cases
         # You'll need a lot more than this to test your algorithm's robustness
         # ...
