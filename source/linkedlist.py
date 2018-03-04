@@ -68,6 +68,7 @@ class LinkedList(object):
             # Skip to the next node
             node = node.next
         # Now node_count contains the number of nodes
+        size = node_count
         return node_count
 
     def get_at_index(self, index):
@@ -112,7 +113,7 @@ class LinkedList(object):
             new_item.next = self.head
             self.head = new_item
         #if item was last at tail
-        elif index == self.size - 1:
+        elif index == self.length - 1:
             self.tail.next = new_item
             self.tail = new_item
         #anywhere else
@@ -122,7 +123,7 @@ class LinkedList(object):
             next_node = cur_node.next
             #Find the node before the index given
             while node_index <= index:
-                if index == node_index - 1:
+                if index == node_index:
                     cur_node.next = new_item
                     new_item.next = next_node
                     return
@@ -148,6 +149,7 @@ class LinkedList(object):
             self.tail.next = new_node
         # Update tail to new node regardless
         self.tail = new_node
+        self.size += 1
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
@@ -163,6 +165,7 @@ class LinkedList(object):
             new_node.next = self.head
         # Update head to new node regardless
         self.head = new_node
+        self.size += 1
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
@@ -191,12 +194,12 @@ class LinkedList(object):
         # data with new_item, without creating a new node object
         tail = self.tail
         if tail.data == old_item:
-            tail.data = old_item
+            tail.data = new_item
         else:
             cur_node = self.head
             while cur_node is not None:
-                if node.data == old_item:
-                    node.data = new_item
+                if cur_node.data == old_item:
+                    cur_node.data = new_item
                     return
                 else:
                     cur_node = cur_node.next
@@ -243,6 +246,7 @@ class LinkedList(object):
                     previous.next = None
                 # Update tail to the previous node regardless
                 self.tail = previous
+            size -= 1
         else:
             # Otherwise raise an error to tell the user that delete has failed
             raise ValueError('Item not found: {}'.format(item))
