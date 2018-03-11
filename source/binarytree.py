@@ -16,12 +16,12 @@ class BinaryTreeNode(object):
     def is_leaf(self):
         """Return True if this node is a leaf (has no children)."""
         # TODO: Check if both left child and right child have no value
-        return ... and ...
+        return self.left is None and self.right is None
 
     def is_branch(self):
         """Return True if this node is a branch (has at least one child)."""
         # TODO: Check if either left child or right child has a value
-        return ... or ...
+        return self.left is not None or self.right is not None
 
     def height(self):
         """Return the height of this node (the number of edges on the longest
@@ -33,7 +33,15 @@ class BinaryTreeNode(object):
         ...
         # Return one more than the greater of the left height and right height
         ...
-
+        heightLeft = 0
+        heightRight = 0
+        if self.is_leaf():
+            return 0
+        if self.left is not None:
+            heightLeft = self.left.height()
+        if self.right is not None:
+            heightRight = self.right.height()
+        return max(heightLeft, heightRight) + 1
 
 class BinarySearchTree(object):
 
@@ -59,6 +67,8 @@ class BinarySearchTree(object):
         TODO: Best and worst case running time: ??? under what conditions?"""
         # TODO: Check if root node has a value and if so calculate its height
         ...
+        if self.root is not None:
+            return self.root.height()
 
     def contains(self, item):
         """Return True if this binary search tree contains the given item.
@@ -77,7 +87,7 @@ class BinarySearchTree(object):
         # Find a node with the given item, if any
         node = self._find_node_recursive(item, self.root)
         # TODO: Return the node's data if found, or None
-        return node.data if ... else None
+        return node.data if node is not None else None
 
     def insert(self, item):
         """Insert the given item in order into this binary search tree.
@@ -86,22 +96,22 @@ class BinarySearchTree(object):
         # Handle the case where the tree is empty
         if self.is_empty():
             # TODO: Create a new root node
-            self.root = ...
+            self.root = BinaryTreeNode(item)
             # TODO: Increase the tree size
-            self.size ...
+            self.size += 1
             return
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
         # TODO: Check if the given item should be inserted left of parent node
-        if ...:
+        if item < parent.data:
             # TODO: Create a new node and set the parent's left child
-            parent.left = ...
+            parent.left = BinaryTreeNode(item)
         # TODO: Check if the given item should be inserted right of parent node
-        elif ...:
+        elif item > parent.data:
             # TODO: Create a new node and set the parent's right child
-            parent.right = ...
+            parent.right = BinaryTreeNode(item)
         # TODO: Increase the tree size
-        self.size ...
+        self.size += 1
 
     def _find_node_iterative(self, item):
         """Return the node containing the given item in this binary search tree,
@@ -114,17 +124,17 @@ class BinarySearchTree(object):
         # Loop until we descend past the closest leaf node
         while node is not None:
             # TODO: Check if the given item matches the node's data
-            if ...:
+            if item == node.data:
                 # Return the found node
                 return node
             # TODO: Check if the given item is less than the node's data
-            elif ...:
+        elif item < node.data:
                 # TODO: Descend to the node's left child
-                node = ...
+                node = node.left
             # TODO: Check if the given item is greater than the node's data
-            elif ...:
+        elif item > node.data:
                 # TODO: Descend to the node's right child
-                node = ...
+                node = node.right
         # Not found
         return None
 
