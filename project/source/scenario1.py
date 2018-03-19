@@ -9,7 +9,7 @@ def read_routes(path):
     return routeDict
 
 def find_cost(allRoutesCost, phoneNumber):
-    print('\n',allRoutesCost)
+    # print('\n',allRoutesCost)
     bestPrice = 0
     for k, v in allRoutesCost.items():
         v = float(v)
