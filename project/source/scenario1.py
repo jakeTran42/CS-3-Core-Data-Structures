@@ -13,10 +13,10 @@ def find_cost(allRoutesCost, phoneNumber):
     bestPrice = 0
     for k, v in allRoutesCost.items():
         v = float(v)
-        if strings.contains(phoneNumber, k) and bestPrice == 0:
-            bestPrice = v
-        elif strings.contains(phoneNumber, k):
-            if v < bestPrice:
+        if strings.contains(phoneNumber, k):
+            if bestPrice == 0:
+                bestPrice = v
+            elif v < bestPrice:
                 bestPrice = v
     return str(bestPrice)
 
