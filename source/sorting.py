@@ -6,7 +6,12 @@ def is_sorted(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check that all adjacent items are in order, return early if not
-
+    if len(items) < 2:
+        return True
+    for i in range(len(items) - 1):
+        if items[i] > items[i + 1]:
+            return False
+    return True
 
 def bubble_sort(items):
     """Sort given items by swapping adjacent items that are out of order, and
@@ -15,6 +20,14 @@ def bubble_sort(items):
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Repeat until all items are in sorted order
     # TODO: Swap adjacent items that are out of order
+    if is_sorted(items):
+        return items
+    for i in range(len(items)):
+        for j in range(0, (len(items)-i)):
+            if items[j] > items[j+1]:
+                items[j], items[j+1] = items[j+1], items[j]
+    return items
+
 
 
 def selection_sort(items):
@@ -25,6 +38,18 @@ def selection_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Find minimum item in unsorted items
     # TODO: Swap it with first unsorted item
+    if is_sorted(items):
+        return items
+    for item in range(len(items)):
+        minItem = 0
+        for i in range(item, item+1):
+            if items[0] > items[i]:
+                minItem = i
+        temp = items[item]
+        items[item] = items[temp]
+        items[minItem] = temp
+
+
 
 
 def insertion_sort(items):
@@ -187,4 +212,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    # print(is_sorted(['B', 'A', 'C']))
