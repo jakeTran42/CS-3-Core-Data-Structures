@@ -6,9 +6,9 @@ def is_sorted(items):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Check that all adjacent items are in order, return early if not
-    if len(items) < 2:
-        return True
     for i in range(len(items) - 1):
+        if type(items[i]) != type(items[i + 1]):
+            raise ValueError('This list contain different type data on index {} and index {}.'.format(i, i+1))
         if items[i] > items[i + 1]:
             return False
     return True
@@ -41,13 +41,20 @@ def selection_sort(items):
     if is_sorted(items):
         return items
     for item in range(len(items)):
-        minItem = 0
-        for i in range(item, item+1):
-            if items[0] > items[i]:
+        minItem = item
+        for i in range(item + 1, len(items)):
+            if items[minItem] > items[i]:
                 minItem = i
-        temp = items[item]
-        items[item] = items[temp]
-        items[minItem] = temp
+
+        # swap(items, minItem, item)
+        items[minItem], items[item] = items[item], items[minItem]
+    return items
+
+#swapping for sorts
+def swap(aList, least, i):
+    temp = aList[least]
+    aList[least] = aList[i]
+    aList[i] = temp
 
 
 
@@ -60,7 +67,13 @@ def insertion_sort(items):
     # TODO: Repeat until all items are in sorted order
     # TODO: Take first unsorted item
     # TODO: Insert it in sorted order in front of items
-
+    for i in range(1, len(items)):
+        currentValue = items[i]
+        position = i
+        while position > 0 and items[position-1]>currentValue:
+            items[position]=items[position-1]
+            position = position-1
+        items[position] = currentValue
 
 def merge(items1, items2):
     """Merge given lists of items, each assumed to already be in sorted order,
@@ -212,5 +225,5 @@ def main():
 
 
 if __name__ == '__main__':
-    # main()
+    main()
     # print(is_sorted(['B', 'A', 'C']))
