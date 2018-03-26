@@ -51,10 +51,10 @@ def selection_sort(items):
     return items
 
 #swapping for sorts
-def swap(aList, least, i):
-    temp = aList[least]
-    aList[least] = aList[i]
-    aList[i] = temp
+def swap(aList, index1, index2):
+    temp = aList[index1]
+    aList[index1] = aList[index2]
+    aList[index2] = temp
 
 
 
@@ -83,6 +83,24 @@ def merge(items1, items2):
     # TODO: Repeat until one list is empty
     # TODO: Find minimum item in both lists and append it to new list
     # TODO: Append remaining items in non-empty list to new list
+    array1Index = 0
+    array2Index = 0
+    sortedList = []
+    while array1Index < len(items1) and array2Index < len(items2):
+        frontItem1 = items1[array1Index]
+        frontItem2 = items2[array2Index]
+        if frontItem1 < frontItem2:
+            sortedList.append(frontItem1)
+            array1Index += 1
+        elif frontItem2 < frontItem1:
+            sortedList.append(frontItem2)
+            array2Index += 1
+
+    if array1Index != len(items1):
+        sortedList.extend(items1[frontItem1:])
+    else:
+        sortedList.extend(items2[frontItem2:])
+    return sortedList
 
 
 def split_sort_merge(items):
@@ -94,6 +112,18 @@ def split_sort_merge(items):
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half using any other sorting algorithm
     # TODO: Merge sorted halves into one list in sorted order
+    middleIndex = len(items) // 2
+    leftArray = items[0:middleIndex]
+    rightArray = items[middleIndex:]
+
+    items1 = selection_sort(leftArray)
+    items2 = selection_sort(rightArray)
+
+    sortItems = merge(items1, items2)
+
+    return sortItems
+
+
 
 
 def merge_sort(items):
@@ -105,6 +135,18 @@ def merge_sort(items):
     # TODO: Split items list into approximately equal halves
     # TODO: Sort each half by recursively calling merge sort
     # TODO: Merge sorted halves into one list in sorted order
+
+    if len(items) < 2:
+        return items
+    leftArr = items[:int(len(items) / 2)]
+    rightArr = items[int(len(items) / 2):]
+
+    items1 = merge_sort(leftArr)
+    items2 = merge_sort(rightArr)
+
+    sortItems = merge(items1, items2)
+
+    return sortItems
 
 
 def partition(items, low, high):
@@ -119,6 +161,26 @@ def partition(items, low, high):
     # TODO: Move items less than pivot into front of range [low...p-1]
     # TODO: Move items greater than pivot into back of range [p+1...high]
     # TODO: Move pivot item into final position [p] and return index p
+    pivotPoint = items[low]
+    left_point = low + 1
+    right_point = high
+
+    done = False
+    while done:
+        while left_point <= right_point and items[left_point] <= pivotPoint:
+            left_point += 1
+        while items[right_point] >= pivotPoint and right_point >= left_point:
+           right_point += 1
+        if right_point < left_point:
+            done = True
+        else:
+            swap(items, left_point, right_point)
+
+    swap(items, left_point, right_point)
+
+    return right_point
+
+
 
 
 def quick_sort(items, low=None, high=None):
@@ -131,6 +193,8 @@ def quick_sort(items, low=None, high=None):
     # TODO: Check if list or range is so small it's already sorted (base case)
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
+
+
 
 
 def counting_sort(numbers):
