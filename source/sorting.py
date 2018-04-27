@@ -163,22 +163,24 @@ def partition(items, low, high):
     # TODO: Move pivot item into final position [p] and return index p
     pivotPoint = items[low]
     left_point = low + 1
-    right_point = high
+    next_point = left_point
 
-    done = False
-    while done:
-        while left_point <= right_point and items[left_point] <= pivotPoint:
-            left_point += 1
-        while items[right_point] >= pivotPoint and right_point >= left_point:
-           right_point += 1
-        if right_point < left_point:
-            done = True
-        else:
-            swap(items, left_point, right_point)
+    # done = False
+    # while not done:
+    #     while left_point <= right_point and items[left_point] <= pivotPoint:
+    #         left_point += 1
+    #     while items[right_point] >= pivotPoint and right_point >= left_point:
+    #        right_point += 1
+    #     if right_point < left_point:
+    #         done = True
+    #     else:
+    #         swap(items, left_point, right_point)
+    #
+    # swap(items, left_point, right_point)
+    #
+    # return right_point
 
-    swap(items, left_point, right_point)
-
-    return right_point
+    for i in range
 
 
 
@@ -194,6 +196,16 @@ def quick_sort(items, low=None, high=None):
     # TODO: Partition items in-place around a pivot and get index of pivot
     # TODO: Sort each sublist range by recursively calling quick sort
 
+    if low is None and high is None :
+        low = 0
+        high = len(items) - 1
+
+    if low < high:
+        pivot = partition(items, low, high)
+        quicksort(items, low, pivot-1)
+        quicksort(items, pivot+1, high)
+
+    return items
 
 
 
